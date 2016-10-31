@@ -67,7 +67,7 @@ RUN wget -P /tmp/ http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.35/bin/apa
     && tar xvf /tmp/apache-tomcat-8.0.35.tar.gz -C /tmp/ && mv /tmp/apache-tomcat-8.0.35/ /var/lib/tomcat8
 
 # Install iRODS-REST
-RUN wget -P /tmp/ https://code.renci.org/gf/download/frsrelease/243/2742/irods-rest.war \
+RUN wget -P /tmp/ https://github.com/DICE-UNC/irods-rest/releases/download/bug52-test/irods-rest.war \
     && mv /tmp/irods-rest.war /var/lib/tomcat8/webapps/ \
     && mkdir /etc/irods-ext
 ADD ./irods-rest.properties /etc/irods-ext/irods-rest.properties
