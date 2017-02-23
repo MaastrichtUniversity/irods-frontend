@@ -8,5 +8,8 @@ set -e
 rm -f /var/run/apache2/apache2.pid
 service apache2 start
 
+#logstash
+/etc/init.d/filebeat start
+
 # this script must end with a persistent foreground process
 tail -F /var/lib/tomcat8/logs/catalina.out /var/lib/tomcat8/logs/localhost* /var/log/apache2/access.log /var/log/apache2/error.log /var/log/apache2/other_vhosts_access.log

@@ -77,7 +77,30 @@ ADD ./irods-cloud-backend-config.groovy /etc/irods-ext/irods-cloud-backend-confi
 
 RUN cp /opt/irods-cloud-browser/build/irods-cloud-backend.war /var/lib/tomcat8/webapps/
 
-
 EXPOSE 80
+
+###############################################################################
+#                                INSTALLATION LOGBEAT
+###############################################################################
+
+### install Filebeat
+
+RUN apt-get update -qq \
+ && apt-get install -qqy curl \
+ && apt-get clean
+
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.2.0-amd64.deb \
+ && dpkg -i filebeat-5.2.0-amd64.deb \
+ && rm filebeat-5.2.0-amd64.deb
+
+###############################################################################
+#                                CONFIGURATION LOGBEAT
+###############################################################################
+
+### configure Filebeat
+
+# config file
+ADD filebeat.yml /etc/filebeat/filebeat.yml
+
 
 ENTRYPOINT [ "/opt/bootstrap.sh" ]
