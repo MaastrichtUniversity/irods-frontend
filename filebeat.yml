@@ -13,7 +13,7 @@ filebeat.prospectors:
     - /var/log/apache2/*.log
 
 output.logstash:
-    hosts: ["elk:5555"]
+    hosts: ["elk:5044"]
 
 
 tags: ["IRODS_FRONTEND"]
