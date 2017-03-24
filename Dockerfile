@@ -34,6 +34,7 @@ ENV PATH "$PATH:$GRAILS_HOME/bin"
 
 ### Clone cloudbrowser
 RUN cd /opt \
+    cd /opt \
     && git clone https://github.com/MaastrichtUniversity/irods-cloud-browser.git
 
 ## run npm install
@@ -58,9 +59,6 @@ RUN a2enmod proxy_http
 # Add modified apache site-configuration
 ADD ./000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD ./index.html /var/www/html/index.html
-
-# Add bootstrap script
-ADD ./bootstrap.sh /opt/bootstrap.sh 
 
 # Install tomcat8
 RUN wget -P /tmp/ http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz \
@@ -102,5 +100,7 @@ RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.
 # config file
 ADD filebeat.yml /etc/filebeat/filebeat.yml
 
+# Add bootstrap script
+ADD ./bootstrap.sh /opt/bootstrap.sh 
 
 ENTRYPOINT [ "/opt/bootstrap.sh" ]
