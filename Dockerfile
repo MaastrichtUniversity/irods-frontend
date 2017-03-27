@@ -8,7 +8,8 @@ RUN apt-get update \
     unzip \
     nodejs \    
     npm \
-    git
+    git \
+    nano
 
 
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | /usr/bin/debconf-set-selections
