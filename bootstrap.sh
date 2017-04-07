@@ -11,7 +11,11 @@ service apache2 start
 #logstash
 /etc/init.d/filebeat start
 
-sleep 10
+# Wait until tomcat webapps have been unpacked
+until [ -f /var/lib/tomcat8/webapps/irods-cloud-backend/index.html  ]; do
+  echo "INFO: irods-cloud-backend not deployed yet, sleeping"
+  sleep 5
+done
 
 cat << EOF > /var/lib/tomcat8/webapps/irods-cloud-backend/js/Vars.js
 var pacmanHost = "${PACMAN_HOST}";
