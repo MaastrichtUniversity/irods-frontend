@@ -6,10 +6,14 @@ RUN apt-get update \
     python-software-properties \
     apache2 \
     unzip \
-    nodejs \    
-    npm \
     git \
-    nano
+    nano \
+    curl
+
+# Install latest version of NodeJS and NPM using Node's setup script
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    nodejs
 
 
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | /usr/bin/debconf-set-selections
@@ -24,9 +28,6 @@ ENV LC_ALL en_US.UTF-8
 RUN cd /tmp \
     && wget https://github.com/grails/grails-core/releases/download/v2.5.0/grails-2.5.0.zip \
     && unzip grails-2.5.0.zip
-
-##Nodejs fix
-RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 ##exports
 ENV JAVA_HOME "/usr/lib/jvm/java-8-oracle"
