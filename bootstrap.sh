@@ -22,7 +22,7 @@ var pacmanHost = "${PACMAN_HOST}";
 
 function pacmanButton() {
     console.log(pacmanHost);
-    window.open(pacmanHost+"/cloudbrowser/index","_blank");
+    window.open(pacmanHost+"/pacman/cbpassword","_blank");
 }
 EOF
 
