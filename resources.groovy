@@ -20,6 +20,6 @@ beans = {
 
 	zipServiceConfiguration(org.irods.jargon.zipservice.api.ZipServiceConfiguration) {
 		failFast = true
-		maxTotalBytesForZip = 5368709120	
+		maxTotalBytesForZip = 5 * 1024 * 1024 * 1024
 	}
 }
