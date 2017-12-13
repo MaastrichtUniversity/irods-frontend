@@ -39,11 +39,13 @@ RUN cd /opt \
     cd /opt \
     && git clone https://github.com/MaastrichtUniversity/irods-cloud-browser.git
 
+##Increase size of zip download for RITDEV-353
+ADD ./resources.groovy /opt/irods-cloud-browser/irods-cloud-backend/grails-app/conf/spring/resources.groovy
+
 ## run npm install
 RUN cd /opt/irods-cloud-browser/irods-cloud-frontend \
     && npm install --unsafe-perm \
     && npm install --global gulp-cli
-
 
 ## run gulp builds
 RUN cd /opt/irods-cloud-browser/irods-cloud-frontend \
