@@ -10,12 +10,6 @@ RUN apt-get update \
     nano \
     curl
 
-# Install latest version of NodeJS and NPM using Node's setup script
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    nodejs
-
-
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | /usr/bin/debconf-set-selections
 RUN apt-add-repository ppa:webupd8team/java && apt-get update && apt-get install oracle-java8-installer -y
 
@@ -23,37 +17,6 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-
-#Install grails and add to export
-RUN cd /tmp \
-    && wget https://github.com/grails/grails-core/releases/download/v2.5.0/grails-2.5.0.zip \
-    && unzip grails-2.5.0.zip
-
-##exports
-ENV JAVA_HOME "/usr/lib/jvm/java-8-oracle"
-ENV GRAILS_HOME "/tmp/grails-2.5.0"
-ENV PATH "$PATH:$GRAILS_HOME/bin"
-
-### Clone cloudbrowser
-RUN cd /opt \
-    cd /opt \
-    && git clone https://github.com/MaastrichtUniversity/irods-cloud-browser.git
-
-## run npm install
-RUN cd /opt/irods-cloud-browser/irods-cloud-frontend \
-    && npm install --unsafe-perm \
-    && npm install --global gulp-cli
-
-
-## run gulp builds
-RUN cd /opt/irods-cloud-browser/irods-cloud-frontend \
-    &&  gulp backend-clean
-RUN cd /opt/irods-cloud-browser/irods-cloud-frontend \
-    &&  gulp backend-build
-RUN cd /opt/irods-cloud-browser/irods-cloud-frontend \
-    &&  gulp gen-war \
-    &&  gulp gen-war
-### BUG FIX FIRST RUN DOES NOT CREATE WAR
 
 ## Setup Apache reverse proxy for Tomcat
 # Enable proxy modules
@@ -75,7 +38,8 @@ ADD ./irods-rest.properties /etc/irods-ext/irods-rest.properties
 # Install Cloud-Browser config 
 ADD ./irods-cloud-backend-config.groovy /etc/irods-ext/irods-cloud-backend-config.groovy
 
-RUN cp /opt/irods-cloud-browser/build/irods-cloud-backend.war /var/lib/tomcat8/webapps/
+# Add the precompiled irods-cloud-browser
+RUN wget -P  /var/lib/tomcat8/webapps/ http://fhml-srv044.unimaas.nl/war/irods-cloud-backend.war
 
 EXPOSE 80
 
