@@ -1,5 +1,12 @@
 # irods-frontend
 
+### IMPORTANT
+The `master` branch uses a precompiled .war file to deploy in Tomcat. <br>
+This `build` branch contains the original build steps in the Dockerfile. 
+
+<br><br><br><br><br><br><br><br><br>
+
+
 Docker container that runs:
 * [Research IT iRODS cloudbrowser](https://github.com/MaastrichtUniversity/irods-cloud-browser); forked from [DICE-UNC](https://github.com/DICE-UNC/irods-cloud-browser)
 * iRODS-REST API; released by [DICE-UNC](https://github.com/DICE-UNC/irods-rest/releases)
