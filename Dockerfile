@@ -39,7 +39,7 @@ ADD ./irods-rest.properties /etc/irods-ext/irods-rest.properties
 ADD ./irods-cloud-backend-config.groovy /etc/irods-ext/irods-cloud-backend-config.groovy
 
 # Add the precompiled irods-cloud-browser
-RUN wget -P  /var/lib/tomcat8/webapps/ https://github.com/MaastrichtUniversity/irods-cloud-browser/releases/download/1.1.0-RELEASE-MUMC/irods-cloud-backend.war
+RUN wget -P  /var/lib/tomcat8/webapps/ https://github.com/MaastrichtUniversity/irods-cloud-browser/releases/download/1.1.1-RELEASE-MUMC/irods-cloud-backend.war
 
 EXPOSE 80
 
