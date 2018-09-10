@@ -12,6 +12,11 @@ filebeat.prospectors:
     - /var/lib/tomcat8/logs/*.log
     - /var/log/apache2/*.log
 
+  #Multiline
+  multiline.pattern: ^([0-9])
+  multiline.negate: true
+  multiline.match: after
+
 output.logstash:
     hosts: ["elk:5044"]
 
