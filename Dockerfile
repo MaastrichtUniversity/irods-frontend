@@ -1,5 +1,9 @@
 FROM ubuntu:14.04
 
+ARG ENV_IRODS_REST_VERSION
+ARG ENV_CLOUDBROWSER_VERSION
+ARG ENV_FILEBEAT_VERSION
+
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     software-properties-common \
@@ -30,7 +34,7 @@ RUN wget -P /tmp/ http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.35/bin/apa
     && tar xvf /tmp/apache-tomcat-8.0.35.tar.gz -C /tmp/ && mv /tmp/apache-tomcat-8.0.35/ /var/lib/tomcat8
 
 # Install iRODS-REST
-RUN wget -P /tmp/ https://github.com/DICE-UNC/irods-rest/releases/download/4.1.10.0-RC1/irods-rest.war \
+RUN wget -P /tmp/ https://github.com/DICE-UNC/irods-rest/releases/download/${ENV_IRODS_REST_VERSION}/irods-rest.war \
     && mv /tmp/irods-rest.war /var/lib/tomcat8/webapps/ \
     && mkdir /etc/irods-ext
 ADD ./irods-rest.properties /etc/irods-ext/irods-rest.properties
@@ -39,12 +43,12 @@ ADD ./irods-rest.properties /etc/irods-ext/irods-rest.properties
 ADD ./irods-cloud-backend-config.groovy /etc/irods-ext/irods-cloud-backend-config.groovy
 
 # Add the precompiled irods-cloud-browser
-RUN wget -P  /var/lib/tomcat8/webapps/ https://github.com/MaastrichtUniversity/irods-cloud-browser/releases/download/1.1.1-RELEASE-MUMC/irods-cloud-backend.war
+RUN wget -P  /var/lib/tomcat8/webapps/ https://github.com/MaastrichtUniversity/irods-cloud-browser/releases/download/${ENV_CLOUDBROWSER_VERSION}/irods-cloud-backend.war
 
 EXPOSE 80
 
 ###############################################################################
-#                                INSTALLATION LOGBEAT
+#                                INSTALLATION FILEBEAT
 ###############################################################################
 
 ### install Filebeat
@@ -53,18 +57,11 @@ RUN apt-get update -qq \
  && apt-get install -qqy curl \
  && apt-get clean
 
-RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.2.0-amd64.deb \
- && dpkg -i filebeat-5.2.0-amd64.deb \
- && rm filebeat-5.2.0-amd64.deb
+RUN wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${ENV_FILEBEAT_VERSION}-amd64.deb -O /tmp/filebeat.deb \
+ && dpkg -i /tmp/filebeat.deb
 
-###############################################################################
-#                                CONFIGURATION LOGBEAT
-###############################################################################
-
-### configure Filebeat
-
-# config file
 ADD filebeat.yml /etc/filebeat/filebeat.yml
+
 
 # Add bootstrap script
 ADD ./bootstrap.sh /opt/bootstrap.sh 
