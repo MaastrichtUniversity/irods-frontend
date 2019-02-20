@@ -5,7 +5,7 @@ ARG ENV_CLOUDBROWSER_VERSION
 ARG ENV_FILEBEAT_VERSION
 
 # Use apt-get NL mirrors
-RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1nl.\2/" /etc/apt/sources.list && apt-get update
+RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1nl.\2/" /etc/apt/sources.list
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
