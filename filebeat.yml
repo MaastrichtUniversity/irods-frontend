@@ -18,7 +18,7 @@ filebeat.prospectors:
   multiline.match: after
 
 output.logstash:
-    hosts: ["elk:5044"]
+    hosts: ["elk.dh.local:5044"]
 
 
 tags: ["IRODS_FRONTEND"]
