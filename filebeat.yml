@@ -1,24 +1,16 @@
-
-filebeat.prospectors:
-
-# Each - is a prospector. Most options can be set at the prospector level, so
-# you can use different prospectors for various configurations.
-# Below are the prospector specific configurations.
-
-- input_type: log
-
-  # Paths that should be crawled and fetched. Glob based paths.
-  paths:
-    - /var/lib/tomcat8/logs/*.log
-    - /var/log/apache2/*.log
-
-  #Multiline
-  multiline.pattern: ^([0-9])
-  multiline.negate: true
-  multiline.match: after
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/lib/tomcat8/logs/*.log
+      - /var/log/apache2/*.log
+    #Multiline
+    multiline.pattern: ^([0-9])
+    multiline.negate: true
+    multiline.match: after
 
 output.logstash:
-    hosts: ["elk.dh.local:5044"]
+  hosts: ["elk.dh.local:5044"]
 
 
 tags: ["IRODS_FRONTEND"]
