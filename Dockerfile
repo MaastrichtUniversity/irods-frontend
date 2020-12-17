@@ -37,6 +37,7 @@ RUN wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${ENV_FI
  && dpkg -i /tmp/filebeat.deb
 
 ADD filebeat.yml /etc/filebeat/filebeat.yml
+RUN chmod go-w /etc/filebeat/filebeat.yml
 
 # Add bootstrap script
 ADD ./bootstrap.sh /opt/bootstrap.sh 
