@@ -1,7 +1,6 @@
 FROM tomcat:8.5.40-jre8-slim
 
 ARG ENV_IRODS_REST_VERSION
-ARG ENV_CLOUDBROWSER_VERSION
 ARG ENV_FILEBEAT_VERSION
 
 RUN apt-get update && \
@@ -26,12 +25,6 @@ RUN wget -P /tmp/ https://github.com/DICE-UNC/irods-rest/releases/download/${ENV
     && mv /tmp/irods-rest.war ${CATALINA_HOME}/webapps/ \
     && mkdir /etc/irods-ext
 ADD ./irods-rest.properties /etc/irods-ext/irods-rest.properties
-
-# Install Cloud-Browser config 
-ADD ./irods-cloud-backend-config.groovy /etc/irods-ext/irods-cloud-backend-config.groovy
-
-# Add the precompiled irods-cloud-browser
-RUN wget -P ${CATALINA_HOME}/webapps/ https://github.com/MaastrichtUniversity/irods-cloud-browser/releases/download/${ENV_CLOUDBROWSER_VERSION}/irods-cloud-backend.war
 
 EXPOSE 80
 

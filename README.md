@@ -1,7 +1,6 @@
 # irods-frontend
 
 Docker container that runs:
-* [Research IT iRODS cloudbrowser](https://github.com/MaastrichtUniversity/irods-cloud-browser); forked from [DICE-UNC](https://github.com/DICE-UNC/irods-cloud-browser)
 * iRODS-REST API; released by [DICE-UNC](https://github.com/DICE-UNC/irods-rest/releases)
 
 ## Usage
