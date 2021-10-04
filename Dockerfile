@@ -36,7 +36,7 @@ RUN if [ $SSL_ENV != "acc" ] && [ $SSL_ENV != "prod" ]; then \
        keytool -import -noprompt -keystore /etc/ssl/certs/java/cacerts -storepass changeit -file /tmp/test_only_dev_irods_dh_ca_cert.pem -alias irods_dh_ca_cert ; \
        echo "done!" ; \
     else \
-       echo "Skipping update of the CA-rootstore" ; \
+       echo "Skipping update of the JVM truststore" ; \
     fi
 
 ###############################################################################
