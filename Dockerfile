@@ -18,6 +18,7 @@ RUN apt-get update && \
 RUN a2enmod proxy_http
 # Add modified apache site-configuration
 ADD ./000-default.conf /etc/apache2/sites-available/000-default.conf
+ADD ./security.conf /etc/apache2/conf-available/security.conf
 ADD ./index.html /var/www/html/index.html
 
 # Install iRODS-REST
