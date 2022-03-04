@@ -16,8 +16,12 @@ RUN apt-get update && \
 ## Setup Apache reverse proxy for Tomcat
 # Enable proxy modules
 RUN a2enmod proxy_http
+# make directory for config file to hide Tomcat version
+RUN mkdir -p /usr/local/tomcat/lib/org/apache/catalina/util
 # Add modified apache site-configuration
 ADD ./000-default.conf /etc/apache2/sites-available/000-default.conf
+ADD ./security.conf /etc/apache2/conf-available/security.conf
+ADD ./ServerInfo.properties /usr/local/tomcat/lib/org/apache/catalina/util/ServerInfo.properties
 ADD ./index.html /var/www/html/index.html
 
 # Install iRODS-REST
